@@ -19,6 +19,8 @@ function AddProducts() {
     const [frame_shape, setFrame_shape] = useState('');
     const [Error, SetError] = useState({});
     const [imagePreviews, setImagePreviews] = useState([]);
+    const [categoryList,setCategoryList] = useState([]);
+
 
     const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
@@ -49,6 +51,26 @@ function AddProducts() {
         setImagePreviews(prevPreviews => [...prevPreviews, ...filePreviews]);
     };
 
+    const handleCategoryChange = (e) => {
+        setCategory('');
+        const newCategory = e.target.value.trim();
+        setCategoryList((prevCategoryList) => {
+            // Check if the category is already in the list
+            if (prevCategoryList.includes(newCategory)) {
+                return prevCategoryList; // Return the same list without adding a duplicate
+            } else {
+                return [...prevCategoryList, newCategory]; // Append new category if it's unique
+                }
+        });
+        
+    }
+
+    const deleteCategory = (indexToDelete) => {
+        setCategoryList((prevCategoryList) => 
+            prevCategoryList.filter((_, index) => index !== indexToDelete)
+        );
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         SetError({});
@@ -57,8 +79,9 @@ function AddProducts() {
         formData.append('name', name);
         formData.append('price', price);
         formData.append('description', description);
-        const categoriesArray = category.split(',').map(cat => cat.trim());
-        categoriesArray.forEach(cat => formData.append('category', cat));
+        formData.append('category', categoryList);
+        // const categoriesArray = category.split(',').map(cat => cat.trim());
+        // categoriesArray.forEach(cat => formData.append('category', cat));
         formData.append('quantity', quantity);
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i]);
@@ -76,8 +99,12 @@ function AddProducts() {
             setImages([]);
             setDescription("");
             setCategory("");
+            setFrame_material("");
+            setFrame_shape("");
+            setLens_material("");
             setQuantity("");
             setImagePreviews([]);
+            setCategoryList([]);
         } catch (error) {
             const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = error.response.data;
             SetError({
@@ -202,19 +229,47 @@ function AddProducts() {
                     {Error.lens_material && <p className="pro-error-text">{Error.lens_material}</p>}
                 </div>
 
+                
                 <div className="pro-form-group">
-                    <label htmlFor="category">Category: </label>
-                    <input
-                        type="text"
-                        id="category"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        placeholder="Enter categories separated by commas"
-                        required
-                    />
-                    {Error.category && <p className="pro-error-text">{Error.category}</p>}
+                    <label htmlFor="lens_material">Choose the category</label>
+                        <select
+                            id="lens_material"
+                            value={category}
+                            onChange={(e) => handleCategoryChange(e)}
+                            
+                        >
+                            <option value="">Select Category</option>
+                            <option value="Eyeglasses">Eyeglasses</option>
+                            <option value="Sunglasses">Sunglasses</option>
+                            <option value="Unisex Eyewear">Unisex Eyewear</option>
+                            <option value="Women's">Women's</option>
+                            <option value="Smoke Crystal">Smoke Crystal</option>
+                            <option value="Unisex">Unisex</option>
+                            <option value="Cat-Shaped">Cat-Shaped</option>
+                            <option value="Translucent">Translucent</option>
+                            <option value="Black Colored">Black Colored</option>
+                            <option value="Rectangular shaped">Rectangular shaped</option>
+                        </select>
+                        {Error.category && <p className="pro-error-text">{Error.category}</p>}
+                    <div className="category-list">
+                        {
+                            categoryList.length > 0 ? (
+                                categoryList.map((category, index) => (
+                                    <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                                        <p>{category}</p>
+                                        <button onClick={() => deleteCategory(index)}>Delete</button>
+                                    </div>
+                                ))
+                            
+                            ):
+                            (
+                                <p>No categories added</p>
+                            ) 
+                            
+                            }
+                    </div>
+                    
                 </div>
-
                 <div className="pro-form-group">
                     <label htmlFor="quantity">Quantity: </label>
                     <input
