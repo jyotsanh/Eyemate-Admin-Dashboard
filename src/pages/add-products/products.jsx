@@ -5,6 +5,16 @@ import './products.css';
 import Cookies from 'js-cookie';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+function isTokenExpired(token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // Convert to seconds
+      return decodedToken.exp < currentTime;
+    } catch (error) {
+      return true; // If there's an error decoding, assume the token is invalid
+    }
+  }
+
 function AddProducts() {
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
@@ -25,6 +35,10 @@ function AddProducts() {
     const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         const token = Cookies.get('token');
+        if(isTokenExpired(token)) {
+            console.log('token expired')
+            return navigate('/');
+        }
         console.log(token) // remove when deploying to production
         if (!token) {
             navigate('/');
@@ -92,8 +106,15 @@ function AddProducts() {
 
         try {
             const token = Cookies.get('token');
+            console.log(isTokenExpired(token));
+            if(isTokenExpired(token)) {
+                return navigate('/');
+            }
             const response = await UploadProducts(formData, token);
             setMessage(response.data.msg);
+            setTimeout(() => {
+                setMessage("");  // Clear message after 3 seconds
+            }, 3000);
             setName("");
             setPrice("");
             setImages([]);
@@ -241,6 +262,7 @@ function AddProducts() {
                             <option value="">Select Category</option>
                             <option value="Eyeglasses">Eyeglasses</option>
                             <option value="Sunglasses">Sunglasses</option>
+                            <option value="Kidsglasses">Kidsglasses</option>
                             <option value="Unisex Eyewear">Unisex Eyewear</option>
                             <option value="Women's">Women's</option>
                             <option value="Smoke Crystal">Smoke Crystal</option>

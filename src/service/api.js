@@ -24,6 +24,45 @@ export const UploadProducts = async (formdata, token) => {
     return response;
 };
 
+// Admin Uploads new products
+export const UploadSunglassesProducts = async (formdata, token) => {
+    const response = await axios.post(`${URL}/add-sunglasses`, formdata, {
+        headers: {
+            'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
+        }
+    });
+    return response;
+};
+
+export function isTokenExpired(token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // Convert to seconds
+      return decodedToken.exp < currentTime;
+    } catch (error) {
+      return true; // If there's an error decoding, assume the token is invalid
+    }
+  }
+
+// Admin Uploads new products
+export const UploadEyeglassesProducts = async (formdata, token) => {
+    const response = await axios.post(`${URL}/add-eyeglasses`, formdata, {
+        headers: {
+            'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
+        }
+    });
+    return response;
+};
+
+// Admin Uploads new products
+export const UploadKidsGlassesProducts = async (formdata, token) => {
+    const response = await axios.post(`${URL}/add-kidsglasses`, formdata, {
+        headers: {
+            'Authorization': `${token}` // Ensure token is prefixed with 'Bearer '
+        }
+    });
+    return response;
+};
 // development in User products data fetched from backend
 export const FetchProducts = async (page = 1, limit = 8, filters = {}) => {
     const response = await axios.get(`${URL}/products`, {
