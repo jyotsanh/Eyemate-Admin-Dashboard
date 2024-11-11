@@ -52,6 +52,9 @@ function Admin() {
                 <NavLink to="/orders">
                     <button className="admin-button">Incomming Orders</button>
                 </NavLink>
+                <NavLink to="/test-admin">
+                    <button className="admin-button">New Admin Enviroment</button>
+                </NavLink>
             </div>
         </div>
     );
