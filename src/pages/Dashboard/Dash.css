@@ -1,0 +1,34 @@
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f9fafb;
+}
+
+.sidebar-container {
+    flex-shrink: 0;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.2rem;
+    color: #4b5563;
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+
+    .dashboard-content {
+        padding: 16px;
+    }
+}

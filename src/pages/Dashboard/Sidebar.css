@@ -1,0 +1,138 @@
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    padding: 16px 12px;
+    overflow-y: auto;
+}
+
+/* Menu Item Styles */
+.menu-item {
+    margin-bottom: 8px;
+}
+
+.menu-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-button:hover {
+    background-color: #f3f4f6;
+}
+
+.menu-button-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+/* Icon Styles */
+.menu-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Chevron icon */
+.menu-button svg:last-child {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+/* Submenu Styles */
+.submenu {
+    margin-left: 48px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.submenu-item {
+    display: block;
+    padding: 8px 16px;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.submenu-item:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+/* Active States */
+.menu-button.active {
+    background-color: #f3f4f6;
+}
+
+.menu-button.active .menu-button-content {
+    color: #111827;
+}
+
+.submenu-item.active {
+    background-color: #f3f4f6;
+    color: #111827;
+    font-weight: 500;
+}
+
+/* Scrollbar Styles */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .submenu {
+        margin-left: 36px;
+    }
+}
+
+/* Animation for submenu */
+.submenu {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

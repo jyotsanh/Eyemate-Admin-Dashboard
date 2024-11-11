@@ -11,6 +11,7 @@ import Admin_View from "../src/pages/Admin/admin_view";
 import EditProduct from "./pages/edit-products/edit-product";
 import AppointmentView from "./pages/Admin/appointment_view";
 import AdminLogIn from "../src/pages/Admin/adminLogIn";
+import Dash from './pages/Dashboard/Dash';
 import './App.css'
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
                         <Route path='/cart' element={<AdminLogIn />} />
                         <Route path='/checkout' element={<AdminLogIn />} />
                         <Route path="/myorders" element={<AdminLogIn />}/>
+                        <Route path="/test-admin" element={<Dash />}/>
                         <Route path="/orders" element={<AllOrders />}/> {/* Product Page when clicked will show product data */}
                     </Routes>
                     <Footer />
