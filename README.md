@@ -41,3 +41,5 @@ cd Eyemate-Admin-Dashboard
 npm install
 npm run dev
 ```
+
+![](./meme.jfif)
