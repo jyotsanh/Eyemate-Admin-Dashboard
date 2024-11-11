@@ -30,7 +30,7 @@ const Sidebar = () => {
             <span>{label}</span>
           </div>
           {children && (
-            expanded ? <ChevronUp /> : <ChevronDown />
+            expanded ? <ChevronUp color="black" /> : <ChevronDown color="black"/>
           )}
         </button>
         

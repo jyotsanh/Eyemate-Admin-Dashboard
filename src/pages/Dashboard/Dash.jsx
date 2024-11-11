@@ -87,7 +87,8 @@ const Dash = () => {
                 <Sidebar />
             </div>
             <div className="dashboard-content">
-                {/* Add your dashboard content here */}
+                <h1>Dashboard</h1>
+                <p>This is the admin dashboard.</p>
             </div>
         </div>
     );
