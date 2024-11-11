@@ -30,6 +30,7 @@ function AddProducts() {
     const [Error, SetError] = useState({});
     const [imagePreviews, setImagePreviews] = useState([]);
     const [categoryList,setCategoryList] = useState([]);
+    const [update, setUpdate] = useState(false);
 
 
     const [isAdmin, setIsAdmin] = useState(false);
@@ -88,7 +89,7 @@ function AddProducts() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         SetError({});
-
+        setUpdate(true);
         const formData = new FormData();
         formData.append('name', name);
         formData.append('price', price);
@@ -126,6 +127,7 @@ function AddProducts() {
             setQuantity("");
             setImagePreviews([]);
             setCategoryList([]);
+            setUpdate(false);
         } catch (error) {
             const { name, price, description, category, quantity, frame_material, lens_material, frame_shape } = error.response.data;
             SetError({
@@ -325,8 +327,12 @@ function AddProducts() {
                         </div>
                     )}
                 </div>
-
-                <button type="submit" className="pro-submit-button">Upload Product</button>
+                {
+                   <button type="submit" className="pro-submit-button" disabled={update}>
+                        {update ? "Updating..." : "Upload Product"}
+                    </button>
+                }
+                
                 {message && <p className="pro-success-text">{message}</p>}
                 {Error.msg && <p className="pro-error-text">{Error.msg}</p>}
             </form>
