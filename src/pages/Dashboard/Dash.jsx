@@ -20,6 +20,10 @@ const Dash = () => {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [ActiveOrder, setActiveOrder] = useState(true);
+    const [ActiveProfile, setActiveProfile] = useState(true);
+    const [Active, setActive] = useState("order");
+    
 
     useEffect(() => {
         const validateToken = () => {
@@ -84,12 +88,12 @@ const Dash = () => {
     return (
         <div className="dashboard">
             <div className="sidebar-container">
-                <Sidebar />
+                <Sidebar setActive = {setActive}/>
             </div>
             <div className="dashboard-content">
-                <h1>Dashboard</h1>
-                <p>This is the admin dashboard.</p>
+                <h1>{Active === "order" ? "Order Dashboard" : "Profile Dashboard"}</h1>
             </div>
+            
         </div>
     );
 };

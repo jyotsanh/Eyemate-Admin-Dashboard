@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, ShoppingBag, Users, Package, Grid, Ticket } from 'lucide-react';
 import './Sidebar.css';
 
-
-const Sidebar = () => {
+const Sidebar = ({ setActive }) => {
   const [expandedMenus, setExpandedMenus] = useState({
     users: false,
     products: false,
@@ -30,7 +29,7 @@ const Sidebar = () => {
             <span>{label}</span>
           </div>
           {children && (
-            expanded ? <ChevronUp color="black" /> : <ChevronDown color="black"/>
+            expanded ? <ChevronUp color="black" /> : <ChevronDown color="black" />
           )}
         </button>
         
@@ -43,10 +42,10 @@ const Sidebar = () => {
     );
   };
 
-  const SubMenuItem = ({ label }) => (
-    <a href="#" className="submenu-item">
+  const SubMenuItem = ({ label, onClick }) => (
+    <button onClick={onClick} className="submenu-item">
       {label}
-    </a>
+    </button>
   );
 
   return (
@@ -54,6 +53,7 @@ const Sidebar = () => {
       <MenuItem
         icon={ShoppingBag}
         label="Orders"
+        onToggle={() => setActive("order")}
       />
       
       <MenuItem
@@ -62,10 +62,10 @@ const Sidebar = () => {
         expanded={expandedMenus.users}
         onToggle={() => toggleMenu('users')}
       >
-        <SubMenuItem label="Profile" />
-        <SubMenuItem label="Create User" />
-        <SubMenuItem label="Update User" />
-        <SubMenuItem label="Delete" />
+        <SubMenuItem label="Profile" onClick={() => setActive("profile")} />
+        <SubMenuItem label="Create User" onClick={() => setActive("createUser")} />
+        <SubMenuItem label="Update User" onClick={() => setActive("updateUser")} />
+        <SubMenuItem label="Delete User" onClick={() => setActive("deleteUser")} />
       </MenuItem>
 
       <MenuItem
@@ -74,9 +74,9 @@ const Sidebar = () => {
         expanded={expandedMenus.products}
         onToggle={() => toggleMenu('products')}
       >
-        <SubMenuItem label="Create Product" />
-        <SubMenuItem label="Update Product" />
-        <SubMenuItem label="Delete Product" />
+        <SubMenuItem label="Create Product" onClick={() => setActive("createProduct")} />
+        <SubMenuItem label="Update Product" onClick={() => setActive("updateProduct")} />
+        <SubMenuItem label="Delete Product" onClick={() => setActive("deleteProduct")} />
       </MenuItem>
 
       <MenuItem
@@ -85,9 +85,9 @@ const Sidebar = () => {
         expanded={expandedMenus.categories}
         onToggle={() => toggleMenu('categories')}
       >
-        <SubMenuItem label="Create Category" />
-        <SubMenuItem label="Update Category" />
-        <SubMenuItem label="Delete Category" />
+        <SubMenuItem label="Create Category" onClick={() => setActive("createCategory")} />
+        <SubMenuItem label="Update Category" onClick={() => setActive("updateCategory")} />
+        <SubMenuItem label="Delete Category" onClick={() => setActive("deleteCategory")} />
       </MenuItem>
 
       <MenuItem
@@ -96,8 +96,8 @@ const Sidebar = () => {
         expanded={expandedMenus.coupons}
         onToggle={() => toggleMenu('coupons')}
       >
-        <SubMenuItem label="Create Coupon" />
-        <SubMenuItem label="Update Coupon" />
+        <SubMenuItem label="Create Coupon" onClick={() => setActive("createCoupon")} />
+        <SubMenuItem label="Update Coupon" onClick={() => setActive("updateCoupon")} />
       </MenuItem>
     </div>
   );
